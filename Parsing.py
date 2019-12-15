@@ -30,7 +30,6 @@ if __name__ == "__main__":
    
     # Step 1: Get termFrequencyDict of each file in the inpath and save it.
     # Pretty much the same as ImportantWords.py
-    # inpath = "/home/li/EDGAR/edgar-10k-mda/form10k08_item7"
     # inpath = "edgar-10k-mda/form10k08_item7"
     inpath = sys.argv[1]
     outpath = inpath + "_dict"   
