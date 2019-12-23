@@ -16,11 +16,11 @@ python3 edgar-10k-mda/edgar.py extract mda --10k-dir=edgar-10k-mda/form10k$2 --m
 # Parse files and get frequency dictionary
 python3 Parsing.py edgar-10k-mda/form10k$2_item1
 python3 Parsing.py edgar-10k-mda/form10k$2_item7
-#python3 Parsing.py /home/li/EDGAR/MyParsing/edgar-10k-mda/form10k$2_item1
-#python3 Parsing.py /home/li/EDGAR/MyParsing/edgar-10k-mda/form10k$2_item7
 
 # Compress files
 tar -zcvf edgar-10k-mda/form10k$2.tar.gz -C edgar-10k-mda form10k$2
 
 # Remove original downloaded files
 #rm -r edgar-10k-mda/form10k$2
+#rm -r edgar-10k-mda/form10k$2_item1
+#rm -r edgar-10k-mda/form10k$2_item7

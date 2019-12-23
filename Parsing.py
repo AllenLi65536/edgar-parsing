@@ -9,11 +9,11 @@ import sys
 from tqdm import tqdm
 from glob import glob
 
-from os import listdir
-from os.path import isfile, join
+#from os import listdir
+from os.path import join
 import os
 
-import multiprocessing
+#import multiprocessing
 from joblib import Parallel, delayed
 def saveTermFreq (filename):
     print("Processing file: ", filename)
@@ -22,7 +22,6 @@ def saveTermFreq (filename):
 
     filename = filename.split("/")[2] # filename = filename + "../../"
     with open(join(outpath, filename + ".csv"), 'w') as f:
-    #with open(filename + ".csv", 'w') as f:
         for key in termFrequencyDict.keys():
             f.write("%s:%s\n"%(key,termFrequencyDict[key]))    
 
@@ -35,12 +34,11 @@ if __name__ == "__main__":
     outpath = inpath + "_dict"   
     
     allFiles = tqdm(sorted(glob(join(inpath, "*.txt"))))
-
     #allFiles = [f for f in listdir(inpath) if isfile(join(inpath, f))]
+
     if not os.path.exists(outpath):
         os.makedirs(outpath)
     
-    #num_cores = multiprocessing.cpu_count() - 1 
     Parallel(n_jobs=-2)(delayed(saveTermFreq)(filename) for filename in allFiles)
 
     # Setp 2: Get accumulated list of step 1. (GetAccumulatedList.py)
@@ -50,7 +48,6 @@ if __name__ == "__main__":
     total_word_dict = dict()
     count = 0
     for filename in allFiles:
-        #f = open(join(outpath, filename), 'r')
         f = open(filename, 'r')
         print("Processing file Nr. ",count,"  (",filename,")")
         
@@ -68,17 +65,17 @@ if __name__ == "__main__":
     
     with open(join(outpath, "accumulated.txt"), 'w') as f:
         for key in total_word_dict.keys():
-            f.write("%s:%s\n"%(key,total_word_dict[key]))    
+            f.write("%s:%s\n"%(key, total_word_dict[key]))    
     
     # Step 3: (CleanAccumulatedList.py)
     with open(join(outpath, "accumulatedCleaned.txt"), 'w') as f:
         for key in list(total_word_dict):
-            if not all(ord(c)<128 for c in key):
+            if not all(ord(c) < 128 for c in key):
                 print(key, " removed non-ascii!")
                 continue
-            if not key.isalpha() or len(key)<=2 or total_word_dict[key]<=2:
+            if not key.isalpha() or len(key) <= 2 or total_word_dict[key] <= 2:
                 continue
-            f.write("%s:%s\n"%(key,total_word_dict[key]))    
+            f.write("%s:%s\n"%(key, total_word_dict[key]))    
     
     """with open(join(outpath, "accumulatedCleaned.txt"), 'w') as f:
         for key in total_word_dict.keys():
