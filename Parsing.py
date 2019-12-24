@@ -68,6 +68,7 @@ if __name__ == "__main__":
             f.write("%s:%s\n"%(key, total_word_dict[key]))    
     
     # Step 3: (CleanAccumulatedList.py)
+    # TODO? Remove regular noun
     with open(join(outpath, "accumulatedCleaned.txt"), 'w') as f:
         for key in list(total_word_dict):
             if not all(ord(c) < 128 for c in key):

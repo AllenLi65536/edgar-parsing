@@ -118,8 +118,8 @@ def download_10k_from(filename):
         print("download 10k failed - {} - {}".format(url, e))
 
 def download_10k(opt):
-    """Downloads 10k HTML and saves only text 
-    """
+    # Downloads 10k HTML and saves only text 
+    
     index_10k_path = opt["--index-10k-path"]
     assert os.path.exists(index_10k_path)
     global form10k_dir
@@ -206,8 +206,8 @@ def extract_mda(opt):
 
 
 def normalize_text(text):
-    """Nomralize Text
-    """
+    #Nomralize Text
+    
     text = unicodedata.normalize("NFKD", text)  # Normalize
     text = '\n'.join(
         text.splitlines())  # Let python take care of unicode break lines
