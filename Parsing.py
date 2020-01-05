@@ -78,10 +78,6 @@ if __name__ == "__main__":
                 continue
             f.write("%s:%s\n"%(key, total_word_dict[key]))    
     
-    """with open(join(outpath, "accumulatedCleaned.txt"), 'w') as f:
-        for key in total_word_dict.keys():
-            f.write("%s:%s\n"%(key,total_word_dict[key]))    """
-
     
     #termVector1,termVector2 = CreateTermVector.getTermVectorsToCompareTwoFiles(termFrequencyDict1,termFrequencyDict2)
     #cosineSim = Similarities.getCosineSimilarity(termVector1,termVector2)
