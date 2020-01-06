@@ -77,8 +77,8 @@ def preParsing(wordList, with_stem):
             continue
 
         ##stemming
-        #if with_stem:
-        #    word = Stemming.stemPorter(word)
+        if with_stem:
+            word = Stemming.stemPorter(word)
         #wordInfo[0] = word
         
         #wordInfo = [None]*3
