@@ -46,7 +46,7 @@ badd +1 Similarities.py
 badd +88 .gitignore
 badd +1 test.py
 badd +3 recompress.sh
-badd +0 GetSimiliarity.py
+badd +1 GetSimiliarity.py
 argglobal
 silent! argdel *
 $argadd Parsing.py
@@ -177,7 +177,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 49
-normal! 014|
+normal! 01|
 tabedit GetSimiliarity.py
 set splitbelow splitright
 set nosplitbelow
@@ -299,12 +299,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 52 - ((9 * winheight(0) + 16) / 33)
+let s:l = 18 - ((8 * winheight(0) + 16) / 33)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-52
-normal! 026|
+18
+normal! 027|
 tabedit edgar-10k-mda/edgar.py
 set splitbelow splitright
 set nosplitbelow
@@ -426,7 +426,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 33 - ((32 * winheight(0) + 16) / 33)
+let s:l = 33 - ((20 * winheight(0) + 16) / 33)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1067,7 +1067,7 @@ exe s:l
 normal! zt
 23
 normal! 0
-tabnext 3
+tabnext 2
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

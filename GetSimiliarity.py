@@ -3,29 +3,30 @@ from tqdm import tqdm
 from glob import glob
 from os.path import join
 
+import concurrent.futures
+
 import multiprocessing as mp
+from multiprocessing.pool import ThreadPool
 from joblib import Parallel, delayed
 import math
 
-def getCosineSimilarity(a,b):
-    #return 1
-    #return a[0]+b[0]
+def getCosineSimilarity(a, b):
     if len(a) != len(b):
         print("Attempted to compute similarity between vectors of different length. Abort mission!")
         return 0
 
-    dotProduct = 0
-    normA = 0
-    normB = 0
-    for i in range(len(a)):
-        dotProduct += a[i] & b[i]
-        normA += a[i]
-        normB += b[i]
-    if normA==normB:        #to prevent sqrt rounding errors
+    dotProduct = sum(i[0] & i[1] for i in zip(a, b))
+    normA = sum(a)
+    normB = sum(b)
+    #for i in range(len(a)):
+        #dotProduct += a[i] & b[i]
+        #normA += a[i]
+        #normB += b[i]
+    if normA == normB:        #to prevent sqrt rounding errors
         return dotProduct/normA
     else:
         k = math.sqrt(normA*normB)
-        if k==0:
+        if k == 0:
             return float('nan')
         else:
             return dotProduct/k
@@ -73,14 +74,31 @@ if __name__ == "__main__":
     # TODO Parallize
     #pool = mp.Pool(mp.cpu_count())
     
+    #pool = ThreadPool(processes=40)
+    
     for i in range(len(qMatrixKeys)):
         print(qMatrixKeys[i])
         
-        #tmpList = list(qMatrixKeys[i:])
-        #similarityMatrix[i] = [pool.apply(getCosineSimilarity, args=(qMatrix[qMatrixKeys[i]], qMatrix[qMatrixj])) for qMatrixj in tmpList]        
-
         for j in range(i+1, len(qMatrixKeys)):
             similarityMatrix[i][j] = getCosineSimilarity(qMatrix[qMatrixKeys[i]], qMatrix[qMatrixKeys[j]])
+        
+        #tmpList = list(qMatrixKeys[i:])
+
+        #similarityMatrix[i] = [pool.apply(getCosineSimilarity, args=(qMatrix[qMatrixKeys[i]], qMatrix[qMatrixj])) \
+        #        for qMatrixj in tmpList]        
+
+#        with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+#            futureToJ = {executor.submit(getCosineSimilarity, qMatrix[qMatrixKeys[i]], qMatrix[qMatrixKeys[j]]):j \
+#                    for j in range(i+1, len(qMatrixKeys))}
+#            for future in concurrent.futures.as_completed(futureToJ):
+#                j = futureToJ[future]
+#                try:
+#                    similarityMatrix[i][j] = future.result()
+#                except Exception as exc:
+#                    print('generated an exception: %s' % (exc))
+#                #else:
+#                #    print('page is %d bytes' % (url, len(data)))
+#
     #pool.close()
     
     print("Outputing similarityMatrix")
