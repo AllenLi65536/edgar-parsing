@@ -18,10 +18,6 @@ def getCosineSimilarity(a, b):
     dotProduct = sum(i[0] & i[1] for i in zip(a, b))
     normA = sum(a)
     normB = sum(b)
-    #for i in range(len(a)):
-        #dotProduct += a[i] & b[i]
-        #normA += a[i]
-        #normB += b[i]
     if normA == normB:        #to prevent sqrt rounding errors
         return dotProduct/normA
     else:
@@ -54,10 +50,11 @@ if __name__ == "__main__":
                 idvList.append(line.split(":")[0])
         
         if cik not in qMatrix:
-            qMatrix[cik] = [0 for x in range(len(accList))]
-        for i in range(len(accList)):
-            if accList[i] in idvList:
-                qMatrix[cik][i] = 1
+            #qMatrix[cik] = [0 for x in range(len(accList))]
+            qMatrix[cik] = [1 if accList[x] in idvList else 0 for x in range(len(accList))]
+        #for i in range(len(accList)):
+        #    if accList[i] in idvList:
+        #        qMatrix[cik][i] = 1
     
     print("Outputing qMatrix")
     with open(join(inpath, "qMatrix.txt"), 'w') as f:
@@ -71,7 +68,11 @@ if __name__ == "__main__":
     similarityMatrix = [[0 for x in range(len(qMatrixKeys))] for y in range(len(qMatrixKeys))]
 
     print("Calculating similarityMatrix")
-    # TODO Parallize
+    # Improvement:  Parallelize
+    # Following multithread does not actually improve throughput
+    # It did use multithread in processing, however, each thread 
+    # has pretty low CPU usage. Not fully utilizing CPU power.
+
     #pool = mp.Pool(mp.cpu_count())
     
     #pool = ThreadPool(processes=40)
