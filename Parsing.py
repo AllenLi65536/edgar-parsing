@@ -1,6 +1,6 @@
 import InputMethods
 import CreateTermVector
-import Similarities
+#import Similarities
 import time
 import csv
 import re
@@ -45,7 +45,8 @@ if __name__ == "__main__":
     #allFiles = [f for f in listdir(outpath) if isfile(join(outpath, f))]
     allFiles = tqdm(sorted(glob(join(outpath, "*.txt.csv"))))
     
-    total_word_dict = dict()
+    totalWordDict = dict()
+    totalWordDictCount = dict()
     count = 0
     for filename in allFiles:
         f = open(filename, 'r')
@@ -55,28 +56,32 @@ if __name__ == "__main__":
             wordFrequencyTuple = line.split(":")
             word = wordFrequencyTuple[0]
             frequency = int(wordFrequencyTuple[1])
-            if word in total_word_dict:
-                total_word_dict[word] += frequency
+            if word in totalWordDict:
+                totalWordDict[word] += frequency
+                totalWordDictCount[word] += 1
             else:
-                total_word_dict[word] = frequency
+                totalWordDict[word] = frequency
+                totalWordDictCount[word] = 1
             
         print("Processed file Nr. ",count,"  (",filename,")")
         count += 1
     
+    threshold = 0.25 * len(allFiles)
     with open(join(outpath, "accumulated.txt"), 'w') as f:
-        for key in total_word_dict.keys():
-            f.write("%s:%s\n"%(key, total_word_dict[key]))    
+        for key in totalWordDict.keys():
+            # Only include uncommon words
+            if totalWordDictCount[key] < threshold:
+                f.write("%s:%s\n"%(key, totalWordDict[key]))    
     
     # Step 3: (CleanAccumulatedList.py)
-    # TODO? Remove regular noun
     with open(join(outpath, "accumulatedCleaned.txt"), 'w') as f:
-        for key in list(total_word_dict):
+        for key in list(totalWordDict):
             if not all(ord(c) < 128 for c in key):
                 print(key, " removed non-ascii!")
                 continue
-            if not key.isalpha() or len(key) <= 2 or total_word_dict[key] <= 2:
+            if not key.isalpha() or len(key) <= 2 or totalWordDict[key] <= 2:
                 continue
-            f.write("%s:%s\n"%(key, total_word_dict[key]))    
+            f.write("%s:%s\n"%(key, totalWordDict[key]))    
     
     
     #termVector1,termVector2 = CreateTermVector.getTermVectorsToCompareTwoFiles(termFrequencyDict1,termFrequencyDict2)

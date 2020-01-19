@@ -1,7 +1,7 @@
 import re
 import PreParsingMethods
 import CreateTermVector
-import Similarities
+#import Similarities
 import time
 
 def readInFile(path):

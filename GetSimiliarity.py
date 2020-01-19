@@ -37,7 +37,6 @@ if __name__ == "__main__":
         for line in f:
             accList.append(line.split(":")[0])
     
-    #qMatrix = [[0 for x in range(len(accList))] for y in range(len(allFiles))]
     qMatrix = dict() 
    
     for filename in allFiles: # Parallizable
@@ -50,11 +49,7 @@ if __name__ == "__main__":
                 idvList.append(line.split(":")[0])
         
         if cik not in qMatrix:
-            #qMatrix[cik] = [0 for x in range(len(accList))]
             qMatrix[cik] = [1 if accList[x] in idvList else 0 for x in range(len(accList))]
-        #for i in range(len(accList)):
-        #    if accList[i] in idvList:
-        #        qMatrix[cik][i] = 1
     
     print("Outputing qMatrix")
     with open(join(inpath, "qMatrix.txt"), 'w') as f:
