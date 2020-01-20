@@ -15,18 +15,20 @@ def getCosineSimilarity(a, b):
         print("Attempted to compute similarity between vectors of different length. Abort mission!")
         return 0
 
-    dotProduct = sum(i[0] & i[1] for i in zip(a, b))
-    normA = sum(a)
-    normB = sum(b)
-    if normA == normB:        #to prevent sqrt rounding errors
-        return dotProduct/normA
-    else:
-        k = math.sqrt(normA*normB)
-        if k == 0:
-            return float('nan')
-        else:
-            return dotProduct/k
-    return 0
+    return sum(i[0] * i[1] for i in zip(a, b))
+    
+#    dotProduct = sum(i[0] * i[1] for i in zip(a, b))
+#    normA = sum(a)
+#    normB = sum(b)
+#    if normA == normB:        #to prevent sqrt rounding errors
+#        return dotProduct/normA
+#    else:
+#        k = math.sqrt(normA*normB)
+#        if k == 0:
+#            return float('nan')
+#        else:
+#            return dotProduct/k
+#    return 0
 
 if __name__ == "__main__":
     inpath = sys.argv[1]
@@ -54,8 +56,16 @@ if __name__ == "__main__":
     print("Outputing qMatrix")
     with open(join(inpath, "qMatrix.txt"), 'w') as f:
         for i in qMatrix.keys():
+            
+            # Normalize the vector to unit length
+            length = sum(j & j for j in qMatrix[i])
+            length = math.sqrt(length)
+            if length == 0:
+                length = 1 # avoid divid by 0
+            
             f.write("%s:"%(i))
             for j in range(len(accList)):
+                qMatrix[i][j] /= length
                 f.write("%s,"%(qMatrix[i][j]))
             f.write("\n")
     

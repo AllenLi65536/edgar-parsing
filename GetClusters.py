@@ -26,6 +26,7 @@ if __name__ == "__main__":
             similarityMatrix[i][j] = similarityMatrix[j][i]
 
     # TODO Clustering
+    print("Clustering")
     mat = np.matrix(similarityMatrix).astype(np.float64)
    
     #eigen_values, eigen_vectors = np.linalg.eigh(mat)
