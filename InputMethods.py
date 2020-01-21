@@ -16,9 +16,9 @@ def readInFile(path):
 ##
 # Preparse single file then get term frequency dictionary.
 ##
-def processSingleFile(wordArray, with_stem):
+def processSingleFile(wordArray, withStem):
 	#time1 = time.time()
-	wordInfoList = PreParsingMethods.preParsing(wordArray, with_stem)
+	wordInfoList = PreParsingMethods.preParsing(wordArray, withStem)
 	#time2 = time.time()
 	#print("preParsing-time: ",(time2-time1))
 	return CreateTermVector.getTermFrequencyDict(wordInfoList)

@@ -18,7 +18,7 @@ from joblib import Parallel, delayed
 def saveTermFreq (filename):
     print("Processing file: ", filename)
     
-    termFrequencyDict = InputMethods.processSingleFile(InputMethods.readInFile(filename), True)
+    termFrequencyDict = InputMethods.processSingleFile(InputMethods.readInFile(filename), False)
 
     filename = filename.split("/")[2] # filename = filename + "../../"
     with open(join(outpath, filename + ".csv"), 'w') as f:
@@ -34,7 +34,6 @@ if __name__ == "__main__":
     outpath = inpath + "_dict"   
     
     allFiles = tqdm(sorted(glob(join(inpath, "*.txt"))))
-    #allFiles = [f for f in listdir(inpath) if isfile(join(inpath, f))]
 
     if not os.path.exists(outpath):
         os.makedirs(outpath)
@@ -42,7 +41,6 @@ if __name__ == "__main__":
     Parallel(n_jobs=-2)(delayed(saveTermFreq)(filename) for filename in allFiles)
 
     # Setp 2: Get accumulated list of step 1. (GetAccumulatedList.py)
-    #allFiles = [f for f in listdir(outpath) if isfile(join(outpath, f))]
     allFiles = tqdm(sorted(glob(join(outpath, "*.txt.csv"))))
     
     totalWordDict = dict()
@@ -79,7 +77,7 @@ if __name__ == "__main__":
             if not all(ord(c) < 128 for c in key):
                 print(key, " removed non-ascii!")
                 continue
-            if not key.isalpha() or len(key) <= 2 or totalWordDict[key] <= 2:
+            if not key.isalpha() or len(key) <= 2 : #or totalWordDict[key] <= 2:
                 continue
             f.write("%s:%s\n"%(key, totalWordDict[key]))    
     

@@ -33,7 +33,7 @@ numberReg = re.compile("^-?[0-9]+$")
 ##whitespace regex
 regWhiteSpaceString = re.compile("\s+")
 
-def preParsing(wordList, with_stem):
+def preParsing(wordList, withStem):
     
     outList = []
     for word in wordList:
@@ -77,7 +77,7 @@ def preParsing(wordList, with_stem):
             continue
 
         ##stemming
-        if with_stem:
+        if withStem:
             word = Stemming.stemPorter(word)
         #wordInfo[0] = word
         

@@ -41,7 +41,7 @@ if __name__ == "__main__":
     
     qMatrix = dict() 
    
-    for filename in allFiles: # Parallizable
+    for filename in allFiles: # Parallelizable
         # extract cik
         cik = filename.split('/')[-1].split('_')[0]
         
