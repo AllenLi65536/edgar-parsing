@@ -213,7 +213,7 @@ def normalize_text(text):
         text.splitlines())  # Let python take care of unicode break lines
 
     # Convert to upper
-    text = text.upper()  # Convert to upper
+    #text = text.upper()  # Convert to upper
 
     # Take care of breaklines & whitespaces combinations due to beautifulsoup parsing
     text = re.sub(r'[ ]+\n', '\n', text)
@@ -226,6 +226,9 @@ def normalize_text(text):
     text = text.replace('\nI\nTEM', '\nITEM')
     text = text.replace('\nITEM\n', '\nITEM ')
     text = text.replace('\nITEM  ', '\nITEM ')
+    text = text.replace('\nI\ntem', '\nITEM')
+    text = text.replace('\nItem\n', '\nITEM ')
+    text = text.replace('\nItem  ', '\nITEM ')
 
     text = text.replace(':\n', '.\n')
 
