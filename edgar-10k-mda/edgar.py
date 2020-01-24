@@ -227,8 +227,13 @@ def normalize_text(text):
     text = text.replace('\nITEM\n', '\nITEM ')
     text = text.replace('\nITEM  ', '\nITEM ')
     text = text.replace('\nI\ntem', '\nITEM')
+    text = text.replace('\nItem', '\nITEM')
     text = text.replace('\nItem\n', '\nITEM ')
     text = text.replace('\nItem  ', '\nITEM ')
+    text = text.replace('\ni\ntem', '\nITEM')
+    text = text.replace('\nitem', '\nITEM')
+    text = text.replace('\nitem\n', '\nITEM ')
+    text = text.replace('\nitem  ', '\nITEM ')
 
     text = text.replace(':\n', '.\n')
 

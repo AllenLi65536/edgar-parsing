@@ -58,7 +58,7 @@ if __name__ == "__main__":
         for i in qMatrix.keys():
             
             # Normalize the vector to unit length
-            length = sum(j & j for j in qMatrix[i])
+            length = sum(qMatrix[i]) #sum(j & j for j in qMatrix[i])
             length = math.sqrt(length)
             if length == 0:
                 length = 1 # avoid divid by 0
@@ -87,6 +87,8 @@ if __name__ == "__main__":
         
         for j in range(i+1, len(qMatrixKeys)):
             similarityMatrix[i][j] = getCosineSimilarity(qMatrix[qMatrixKeys[i]], qMatrix[qMatrixKeys[j]])
+        
+        print(similarityMatrix[i][i+1])
         
         #tmpList = list(qMatrixKeys[i:])
 

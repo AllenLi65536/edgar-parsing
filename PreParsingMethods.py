@@ -61,7 +61,17 @@ def preParsing(wordList, withStem):
 
         if isSingleLetter(word) or not word.isalpha():
             continue
-
+        
+        # Lemmatize
+        word = lemmatizer.lemmatize(word, get_wordnet_pos(word))
+        
+        # Check if it is noun
+        if word.lower() not in nouns:
+            continue
+        
+        outList.append(word)
+        
+        '''
         ##lowercase word before further processing. CARE: can change some outcomes (eg. change IT to it which gets stopword-filtered)
         word = word.lower()
         
@@ -87,9 +97,8 @@ def preParsing(wordList, withStem):
         #wordInfo[0] = newWord
         
         outList.append(word)
+        '''
     
-    #outList = [lemmatizer.lemmatize(w, get_wordnet_pos(w)) for w in outList]    
-
     return outList
 
 def isEmptyOrWhitespaceString(word):

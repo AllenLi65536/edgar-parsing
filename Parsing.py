@@ -68,8 +68,8 @@ if __name__ == "__main__":
     with open(join(outpath, "accumulated.txt"), 'w') as f:
         for key in totalWordDict.keys():
             # Only include uncommon words
-            if totalWordDictCount[key] < threshold:
-                f.write("%s:%s\n"%(key, totalWordDict[key]))    
+            #if totalWordDictCount[key] < threshold:
+            f.write("%s:%s\n"%(key, totalWordDict[key]))    
     
     # Step 3: (CleanAccumulatedList.py)
     with open(join(outpath, "accumulatedCleaned.txt"), 'w') as f:
@@ -79,7 +79,9 @@ if __name__ == "__main__":
                 continue
             if not key.isalpha() or len(key) <= 2 : #or totalWordDict[key] <= 2:
                 continue
-            f.write("%s:%s\n"%(key, totalWordDict[key]))    
+            # Only include uncommon words
+            if totalWordDictCount[key] < threshold:
+                f.write("%s:%s\n"%(key, totalWordDict[key]))    
     
     
     #termVector1,termVector2 = CreateTermVector.getTermVectorsToCompareTwoFiles(termFrequencyDict1,termFrequencyDict2)
