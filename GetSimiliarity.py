@@ -93,7 +93,8 @@ if __name__ == "__main__":
         for j in range(i+1, len(qMatrixKeys)):
             similarityMatrix[i][j] = getCosineSimilarity(qMatrix[qMatrixKeys[i]], qMatrix[qMatrixKeys[j]])
         
-        print(similarityMatrix[i][i+1])
+        #if i+1 < len(qMatrixKeys):
+            #print(similarityMatrix[i][i+1])
         
         #tmpList = list(qMatrixKeys[i:])
 
