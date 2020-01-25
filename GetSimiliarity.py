@@ -11,9 +11,14 @@ from joblib import Parallel, delayed
 import math
 
 def getCosineSimilarity(a, b):
-    if len(a) != len(b):
-        print("Attempted to compute similarity between vectors of different length. Abort mission!")
-        return 0
+    #if len(a) != len(b):
+    #    print("Attempted to compute similarity between vectors of different length. Abort mission!")
+    #    return 0
+    
+    # Normalize the vector to unit length
+    #lenA = sum(a) 
+    #lenB = sum(B) 
+    #return sum(i[0] & i[1] for i in zip(a, b)) / math.sqrt(lenA*lenB)
 
     return sum(i[0] * i[1] for i in zip(a, b))
     

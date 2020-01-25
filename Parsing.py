@@ -67,8 +67,6 @@ if __name__ == "__main__":
     threshold = 0.25 * len(allFiles)
     with open(join(outpath, "accumulated.txt"), 'w') as f:
         for key in totalWordDict.keys():
-            # Only include uncommon words
-            #if totalWordDictCount[key] < threshold:
             f.write("%s:%s\n"%(key, totalWordDict[key]))    
     
     # Step 3: (CleanAccumulatedList.py)
