@@ -64,12 +64,12 @@ if __name__ == "__main__":
         print("Processed file Nr. ",count,"  (",filename,")")
         count += 1
     
-    threshold = 0.25 * len(allFiles)
     with open(join(outpath, "accumulated.txt"), 'w') as f:
         for key in totalWordDict.keys():
             f.write("%s:%s\n"%(key, totalWordDict[key]))    
     
     # Step 3: (CleanAccumulatedList.py)
+    threshold = 0.25 * len(allFiles)
     with open(join(outpath, "accumulatedCleaned.txt"), 'w') as f:
         for key in list(totalWordDict):
             if not all(ord(c) < 128 for c in key):
