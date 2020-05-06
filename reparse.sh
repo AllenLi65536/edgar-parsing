@@ -18,8 +18,8 @@ rm -r edgar-10k-mda/form10k$1_item1
 rm -r edgar-10k-mda/form10k$1_item7
 
 # Get similarity matrix
-#python3 GetSimiliarity.py edgar-10k-mda/form10k$1_item1_dict
-#python3 GetSimiliarity.py edgar-10k-mda/form10k$1_item7_dict
+python3 GetSimilarity.py edgar-10k-mda/form10k$1_item1_dict
+python3 GetSimilarity.py edgar-10k-mda/form10k$1_item7_dict
 
 # Get clusters
 #python3 GetClusters.py edgar-10k-mda/form10k$1_item1_dict

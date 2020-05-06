@@ -138,8 +138,8 @@ def download_10k(opt):
             filenames.append(filename)
         
         # Parallelize it
-        num_cores = multiprocessing.cpu_count() - 1 
-        Parallel(n_jobs=num_cores)(delayed(download_10k_from)(filename) for filename in filenames)
+        #num_cores = multiprocessing.cpu_count() - 1 
+        Parallel(n_jobs=-4)(delayed(download_10k_from)(filename) for filename in filenames)
 
 
 def extract_mda_para(form10k_file):
@@ -199,7 +199,7 @@ def extract_mda(opt):
         os.makedirs(mda_dir + "_item7")
         
     num_cores = multiprocessing.cpu_count() - 1 
-    Parallel(n_jobs=num_cores)(delayed(extract_mda_para)(form10k_file) for form10k_file in tqdm(sorted(glob(os.path.join(form10k_dir, "*.txt")))))
+    Parallel(n_jobs=-4)(delayed(extract_mda_para)(form10k_file) for form10k_file in tqdm(sorted(glob(os.path.join(form10k_dir, "*.txt")))))
 
     #for form10k_file in tqdm(sorted(glob(os.path.join(form10k_dir, "*.txt")))):
     #    extract_mda_para(form10k_file)

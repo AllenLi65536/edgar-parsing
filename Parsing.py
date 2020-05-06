@@ -38,7 +38,7 @@ if __name__ == "__main__":
     if not os.path.exists(outpath):
         os.makedirs(outpath)
     
-    Parallel(n_jobs=-2)(delayed(saveTermFreq)(filename) for filename in allFiles)
+    Parallel(n_jobs=-4)(delayed(saveTermFreq)(filename) for filename in allFiles)
 
     # Setp 2: Get accumulated list of step 1. (GetAccumulatedList.py)
     allFiles = tqdm(sorted(glob(join(outpath, "*.txt.csv"))))

@@ -10,6 +10,9 @@ from multiprocessing.pool import ThreadPool
 from joblib import Parallel, delayed
 import math
 
+import numpy as np
+import sklearn.metrics.pairwise as pairwise
+
 def getCosineSimilarity(a, b):
     #if len(a) != len(b):
     #    print("Attempted to compute similarity between vectors of different length. Abort mission!")
@@ -17,23 +20,10 @@ def getCosineSimilarity(a, b):
     
     # Normalize the vector to unit length
     #lenA = sum(a) 
-    #lenB = sum(B) 
+    #lenB = sum(b) 
     #return sum(i[0] & i[1] for i in zip(a, b)) / math.sqrt(lenA*lenB)
 
     return sum(i[0] * i[1] for i in zip(a, b))
-    
-#    dotProduct = sum(i[0] * i[1] for i in zip(a, b))
-#    normA = sum(a)
-#    normB = sum(b)
-#    if normA == normB:        #to prevent sqrt rounding errors
-#        return dotProduct/normA
-#    else:
-#        k = math.sqrt(normA*normB)
-#        if k == 0:
-#            return float('nan')
-#        else:
-#            return dotProduct/k
-#    return 0
 
 if __name__ == "__main__":
     inpath = sys.argv[1]
@@ -74,10 +64,12 @@ if __name__ == "__main__":
                 f.write("%s,"%(qMatrix[i][j]))
             f.write("\n")
     
-    qMatrixKeys = sorted(qMatrix.keys())
-    similarityMatrix = [[0 for x in range(len(qMatrixKeys))] for y in range(len(qMatrixKeys))]
-
     print("Calculating similarityMatrix")
+    
+    qMatrixKeys = sorted(qMatrix.keys())
+    #similarityMatrix = [[0 for x in range(len(qMatrixKeys))] for y in range(len(qMatrixKeys))]
+    similarityMatrix = pairwise.cosine_similarity(np.array([qMatrix[key] for key in qMatrixKeys]))
+
     # Improvement:  Parallelize
     # Following multithread does not actually improve throughput
     # It did use multithread in processing, however, each thread 
@@ -86,16 +78,19 @@ if __name__ == "__main__":
     #pool = mp.Pool(mp.cpu_count())
     
     #pool = ThreadPool(processes=40)
-    
+   
+    '''
     for i in range(len(qMatrixKeys)):
         print(qMatrixKeys[i])
         
         for j in range(i+1, len(qMatrixKeys)):
             similarityMatrix[i][j] = getCosineSimilarity(qMatrix[qMatrixKeys[i]], qMatrix[qMatrixKeys[j]])
+            print(similarityMatrix[i][j])
         
         if i+1 < len(qMatrixKeys):
             print(similarityMatrix[i][i+1])
-        
+    '''
+    
         #tmpList = list(qMatrixKeys[i:])
 
         #similarityMatrix[i] = [pool.apply(getCosineSimilarity, args=(qMatrix[qMatrixKeys[i]], qMatrix[qMatrixj])) \

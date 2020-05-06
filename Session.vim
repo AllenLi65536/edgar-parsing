@@ -69,7 +69,7 @@ badd +2 edgar-10k-mda/form10k09_item7_dict/qMatrix.txt
 badd +33 edgar-10k-mda/form10k09_item7_dict/1000045_0001193125-09-130987_item7.txt.csv
 badd +33 edgar-10k-mda/form10k09_item7_dict/1000180_0001000180-09-000011_item7.txt.csv
 badd +23818 edgar-10k-mda/form10k08_item7_dict/accumulatedCleaned.txt
-badd +0 GetSimilarity.py
+badd +1 GetSimilarity.py
 argglobal
 silent! argdel *
 $argadd Parsing.py
@@ -327,7 +327,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 72
-normal! 01|
+normal! 0
 tabedit GetSimilarity.py
 set splitbelow splitright
 set nosplitbelow
@@ -449,12 +449,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 16) / 33)
+let s:l = 75 - ((32 * winheight(0) + 16) / 33)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 0
+75
+normal! 025|
 tabedit GetClusters.py
 set splitbelow splitright
 set nosplitbelow
@@ -957,12 +957,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 66 - ((20 * winheight(0) + 16) / 33)
+let s:l = 37 - ((0 * winheight(0) + 16) / 33)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-66
-normal! 08|
+37
+normal! 04|
 tabedit reparse.sh
 set splitbelow splitright
 set nosplitbelow
@@ -1217,7 +1217,7 @@ exe s:l
 normal! zt
 2
 normal! 011|
-tabnext 9
+tabnext 7
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

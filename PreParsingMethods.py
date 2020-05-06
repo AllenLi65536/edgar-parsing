@@ -62,6 +62,8 @@ def preParsing(wordList, withStem):
         if isSingleLetter(word) or not word.isalpha():
             continue
         
+        word = word.lower()
+        
         # Lemmatize
         word = lemmatizer.lemmatize(word, get_wordnet_pos(word))
         
